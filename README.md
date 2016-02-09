@@ -3,7 +3,7 @@
 Net::HTTPS::Certwarner - checks for TLS certificate date validity
 
 # SYNOPSIS
-
+```perl
     use Net::HTTPS::Certwarner;
     use Try::Tiny;
     use feature 'say';
@@ -15,7 +15,7 @@ Net::HTTPS::Certwarner - checks for TLS certificate date validity
 
     if ( $message->{is_ok} ) {
         say "certificate is fine today!";
-        my $in_a_week = $checker->check( DateTime->now->add( days => 7 );
+        my $in_a_week = $checker->check( DateTime->now->add( days => 7 ) );
         say  "...but it needs to be renewed soon!" if not $in_a_week->{is_ok};
     }
     else {
@@ -23,7 +23,11 @@ Net::HTTPS::Certwarner - checks for TLS certificate date validity
         say "valid from: " . $message->{not_before}->dmy . ' till ' . $message->{not_after}->dmy;
 
     };
-
+```
+# CLI usage
+```
+    perl script/check.pl --host google.com
+```
 # DESCRIPTION
 
 Certwarner will connect to a HTTPS service (requesting "/" ) and inspect the
@@ -60,3 +64,9 @@ expire soon.
 
 This is free software licensde under the MIT licence. See LICENSE file of this
 package for details.
+
+# CHANGES
+
+- 0.02
+
+    first working release

@@ -28,6 +28,10 @@ Net::HTTPS::Certwarner - checks for TLS certificate date validity
 
     };
 
+=head1 CLI usage
+
+    perl script/check.pl --host google.com
+
 =head1 DESCRIPTION
 
 Certwarner will connect to a HTTPS service (requesting "/" ) and inspect the
