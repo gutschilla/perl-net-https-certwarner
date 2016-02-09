@@ -1,6 +1,6 @@
 package Net::HTTPS::Certwarner;
 
-our $VERSION = 0.01;
+our $VERSION = 0.02;
 
 =head1 NAME 
 
@@ -19,7 +19,7 @@ Net::HTTPS::Certwarner - checks for TLS certificate date validity
 
     if ( $message->{is_ok} ) {
         say "certificate is fine today!";
-        my $in_a_week = $checker->check( DateTime->now->add( days => 7 );
+        my $in_a_week = $checker->check( DateTime->now->add( days => 7 ) );
         say  "...but it needs to be renewed soon!" if not $in_a_week->{is_ok};
     }
     else {
@@ -69,6 +69,16 @@ Will return a hashref containing these keys
 This is free software licensde under the MIT licence. See LICENSE file of this
 package for details.
 
+=head1 CHANGES
+
+=over
+
+=item 0.02
+
+first working release
+
+=back
+
 =cut
 
 use Moose;
@@ -86,11 +96,11 @@ sub check {
     my $s = Net::HTTPS->new( Host => $self->host, Port => $self->port ) || die $@;
     $s->write_request( GET => "/", 'User-Agent' => "Mozilla/5.0");
 
-    my $cert = CERT_asHash( $c->peer_certificate );
+    my $cert = CERT_asHash( $s->peer_certificate );
     my $not_before_epoch = $cert->{not_before};
     my $not_after_epoch  = $cert->{not_after};
 
-    my $not_before  = DateTime->from_epoch( epoch => $not_after_epoch );
+    my $not_before  = DateTime->from_epoch( epoch => $not_before_epoch );
     my $not_after   = DateTime->from_epoch( epoch => $not_after_epoch );
     my $date_within = $options{ date_within } || DateTime->now;
 
@@ -107,8 +117,8 @@ sub check {
     };
     
     $message->{error} 
-        = $is_in_future ? 'validity is in future',
-        : $has_expired  ? 'cert has expired',
+        = $is_in_future ? 'validity is in future'
+        : $has_expired  ? 'cert has expired'
         : 'unknown error'
     if not $is_ok;
 
@@ -116,6 +126,5 @@ sub check {
     die $message if $options{ die_on_error };
     return $message;
 }
-
 
 1;
