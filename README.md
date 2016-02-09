@@ -3,7 +3,7 @@
 Net::HTTPS::Certwarner - checks for TLS certificate date validity
 
 # SYNOPSIS
-
+```perl
     use Net::HTTPS::Certwarner;
     use Try::Tiny;
     use feature 'say';
@@ -23,7 +23,7 @@ Net::HTTPS::Certwarner - checks for TLS certificate date validity
         say "valid from: " . $message->{not_before}->dmy . ' till ' . $message->{not_after}->dmy;
 
     };
-
+```
 # DESCRIPTION
 
 Certwarner will connect to a HTTPS service (requesting "/" ) and inspect the
