@@ -62,6 +62,8 @@ Will return a hashref containing these keys
     not_before:     DateTime instance. Since when the cert is vaild
     error:          Striug. Only set up on error. Contains error message.
 
+=back
+
 =head1 LICENSE
 
 This is free software licensde under the MIT licence. See LICENSE file of this
