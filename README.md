@@ -25,7 +25,7 @@ Net::HTTPS::Certwarner - checks for TLS certificate date validity
     };
 ```
 # CLI usage
-```perl
+```bash
     perl script/check.pl --host google.com
 ```
 # DESCRIPTION
